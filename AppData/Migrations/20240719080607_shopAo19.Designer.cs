@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppData.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240717080756_ShopAo17-07")]
-    partial class ShopAo1707
+    [Migration("20240719080607_shopAo19")]
+    partial class shopAo19
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -311,6 +311,7 @@ namespace AppData.Migrations
             modelBuilder.Entity("AppData.Models.TaiKhoan", b =>
                 {
                     b.Property<string>("Username")
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
@@ -319,7 +320,8 @@ namespace AppData.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Username");
 

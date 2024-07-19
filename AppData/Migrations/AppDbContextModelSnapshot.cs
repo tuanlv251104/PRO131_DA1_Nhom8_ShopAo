@@ -309,6 +309,7 @@ namespace AppData.Migrations
             modelBuilder.Entity("AppData.Models.TaiKhoan", b =>
                 {
                     b.Property<string>("Username")
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
@@ -317,7 +318,8 @@ namespace AppData.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Username");
 
