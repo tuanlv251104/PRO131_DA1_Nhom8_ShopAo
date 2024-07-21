@@ -3,45 +3,86 @@
 @{
     ViewData["Title"] = "Login";
 }
-
-<h1>Login</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+@if (TempData["Status"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Status"]
+    </div>
 }
-    </tbody>
-</table>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trang Đăng Nhập</title>
+	<!-- Link Bootstrap CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body {
+			background-color: #f8f9fa;
+		}
+
+		.login-container {
+			max-width: 400px;
+			margin: 100px auto;
+			padding: 20px;
+			background-color: #ffffff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
+		}
+
+			.login-container h2 {
+				margin-bottom: 20px;
+			}
+
+		.btn-custom {
+			background-color: #007bff;
+			color: #ffffff;
+		}
+
+		.btn-signup {
+			background-color: #28a745;
+			color: #ffffff;
+		}
+	</style>
+</head>
+@using (Html.BeginForm("Login", "TaiKhoan", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+	<body>
+		<div class="container">
+			<div class="login-container">
+				<h2 class="text-center">Đăng Nhập</h2>
+				<form asp-action="Login" method="post" class="border p-4">
+					<div class="form-group">
+						@Html.Label("Tên đăng nhập")
+						@Html.TextBox("username", "", new { @class = "form-control" })
+					</div>
+					<div class="form-group">
+						@Html.Label("Mật khẩu")
+						@Html.Password("password", "", new { @class = "form-control" })
+					</div>
+					<div class="form-check d-flex justify-content-start mb-4">
+						<input class="form-check-input" type="checkbox" value="" id="form1Example3" />
+						<label class="form-check-label" for="form1Example3"> Remember password </label>
+					</div>
+					<div class="d-flex justify-content-between p-2">
+						<button type="submit" class="btn btn-custom">Đăng Nhập</button>
+						<a href="@Url.Action("SignUp", "TaiKhoan")" type="button" class="btn btn-signup">Đăng ký</a>
+
+					</div>
+					<button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
+							type="submit">
+						Sign in with google
+					</button>
+					<button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
+							type="submit">
+						Sign in with facebook
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<!-- Link Bootstrap JS and dependencies -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	</body>
+}

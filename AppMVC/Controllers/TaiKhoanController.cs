@@ -28,10 +28,10 @@ namespace AppMVC.Controllers
                 {
                     return Content("Đăng nhập thất bại mời kiểm tra lại");
                 }
-                else if (username == "admin" && password == "1")
+                else if (username == "admin12345" && password == "admin12345")
                 {
                     HttpContext.Session.SetString("username", username);
-                    return RedirectToAction("Index", "SanPham");
+                    return RedirectToAction("Index", "TaiKhoan");
                 }
                 else
                 {

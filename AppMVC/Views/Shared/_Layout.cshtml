@@ -55,13 +55,14 @@
                     </ul>
                     <span>@ViewData["login"]</span>
                     <div class="user_option"> 
-                        <form class="form-inline ">
-                            <input>
-                            </input>
-                            <button class="btn nav_search-btn" type="submit">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </form>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
                         <a class="nav-link text-dark" asp-controller="GioHang" asp-action="Index">
                             <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                         </a>
@@ -177,5 +178,10 @@
         @await RenderSectionAsync("Scripts", required: false)
 
 </body>
-
+<style>
+    .input-group .form-control,
+    .input-group .btn {
+        border-radius: 30px;
+    }
+</style>
 </html>
