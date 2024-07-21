@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppData.Models.TaiKhoan>
+﻿@model IEnumerable<AppData.Models.DanhSachSP>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,45 +13,50 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 	<style>
 		body {
-            display: flex;
-            height: 100%;
-            margin: 0;
-        }
-        .sidebar {
-            width: 250px;
-            background-color: #343a40;
-            color: white;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .sidebar .nav-link {
-            color: white;
-            margin: 10px 0;
-        }
-        .sidebar .nav-link.active {
-            background-color: #495057;
-            border-radius: 5px;
-        }
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-            background-color: #f8f9fa;
-            overflow-y: auto;
-        }
-        .content h2 {
-            margin-top: 0;
-        }
+			display: flex;
+			height: 100%;
+			margin: 0;
+		}
+
+		.sidebar {
+			width: 250px;
+			background-color: #343a40;
+			color: white;
+			flex-shrink: 0;
+			display: flex;
+			flex-direction: column;
+			padding: 20px;
+		}
+
+			.sidebar .nav-link {
+				color: white;
+				margin: 10px 0;
+			}
+
+				.sidebar .nav-link.active {
+					background-color: #495057;
+					border-radius: 5px;
+				}
+
+		.content {
+			flex-grow: 1;
+			padding: 20px;
+			background-color: #f8f9fa;
+			overflow-y: auto;
+		}
+
+			.content h2 {
+				margin-top: 0;
+			}
 	</style>
 </head>
 <body>
 	<div class="d-flex">
 		<div class="sidebar d-flex flex-column">
 			<h4>Admin quản lý</h4>
-			<ul class="nav nav-pills flex-column mb-auto">				
+			<ul class="nav nav-pills flex-column mb-auto">
 				<li class="nav-item">
-					<a class="nav-link active" asp-controller="TaiKhoan" asp-action="Index" aria-current="page">
+					<a class="nav-link" asp-controller="TaiKhoan" asp-action="Index" >
 						<i class="fas fa-users"></i> Quản lý Tài Khoản
 					</a>
 				</li>
@@ -66,7 +71,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" asp-controller="DanhMuc" asp-action="Index">
+					<a class="nav-link  active" asp-controller="DanhMuc" asp-action="Index" aria-current="page">
 						<i class="fas fa-list"></i> Quản lý danh Mục
 					</a>
 				</li>
@@ -93,28 +98,29 @@
 			</ul>
 		</div>
 		<div class="content">
-			<h2>Quản lý tài khoản</h2>
-			<hr />
-			@using (Html.BeginForm())
-			{
-				<p></p>
-				<div class="form-group form-inline">
-					Tìm kiếm : @Html.TextBox("TimTK", "", new {@class="form-control"})
-					<input type="submit" class="btn btn-default" value="Tìm kiếm" />
-				</div>
-			}
+			<h2>Quản lý danh mục</h2>
+			<div class="d-flex">
+				<p>
+					<a asp-action="Create">Thêm mới</a>
+				</p>
+				@using (Html.BeginForm())
+				{
+					<p></p>
+					<div class="form-group form-inline">
+						Tìm kiếm : @Html.TextBox("TimDM", "", new {@class="form-control"})
+						<input type="submit" class="btn btn-default" value="Tìm kiếm" />
+					</div>
+				}
+			</div>
 			<div class="row">
 				<table class="table">
 					<thead>
 						<tr>
 							<th>
-								@Html.DisplayNameFor(model => model.Username)
+								@Html.DisplayNameFor(model => model.Id)
 							</th>
 							<th>
-								@Html.DisplayNameFor(model => model.Password)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Email)
+								@Html.DisplayNameFor(model => model.TenDanhMuc)
 							</th>
 							<th>
 								Tính năng
@@ -126,16 +132,13 @@
 						{
 							<tr>
 								<td>
-									@Html.DisplayFor(modelItem => item.Username)
+									@Html.DisplayFor(modelItem => item.Id)
 								</td>
 								<td>
-									@Html.DisplayFor(modelItem => item.Password)
+									@Html.DisplayFor(modelItem => item.TenDanhMuc)
 								</td>
 								<td>
-									@Html.DisplayFor(modelItem => item.Email)
-								</td>
-								<td>									
-									@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+									@Html.ActionLink("Sửa", "Update", new { id=item.Id })
 								</td>
 							</tr>
 						}
@@ -143,8 +146,10 @@
 				</table>
 			</div>
 		</div>
-    </div>
+	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+

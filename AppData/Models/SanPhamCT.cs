@@ -13,8 +13,6 @@ namespace AppData.Models
         public Guid SanPhamId { get; set; }
         public Guid SizeId { get; set; }
         public Guid MauSacId { get; set; }
-        //public Guid AnhSPId { get; set; }
-        public decimal GiaSP { get; set; }
         public int SoLuong { get; set; }
         public string ThuongHieu { get; set; }
         public string MoTa { get; set; }
@@ -23,7 +21,6 @@ namespace AppData.Models
         public virtual List<GioHangCT> GioHangCTs { get;set; }
         public virtual SizeSP SizeSP { get; set; }
         public virtual MauSac MauSacSP { get; set; }
-        public virtual List<AnhSP> AnhSP { get; set; }
         public virtual SanPham SanPham { get; set; }
     }
 }
