@@ -1,4 +1,9 @@
-﻿
+﻿@model IEnumerable<AppData.Models.SanPham>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMUhbB8lE41U5Cd6cmw5BLf2e1Zy7lyK7G7pV5J" crossorigin="anonymous">
 <!-- slider show -->
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -8,7 +13,7 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="~/img/anhbanner1.png" class="d-block " alt="..."style="width:1200px; height:400px">
+            <img src="~/img/anhbanner1.png" class="d-block " alt="..." style="width:1200px; height:400px">
         </div>
         <div class="carousel-item">
             <img src="~/img/anhBanner2.jpg" class="d-block " alt="..." style="width:1200px; height:400px">
@@ -34,6 +39,47 @@
                 Latest Products
             </h2>
         </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="box">
+                        <a href="#">
+                            <div class="img-box">
+                                @{
+                                    var extension = System.IO.Path.GetExtension(item.AnhSP);
+                                }
+                                @if (@extension.Contains(extension))
+                                {
+                                    <img src="~/img/@item.AnhSP">
+                                }
+                                else
+                                {
+                                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2Finternetexplorerbeta%2Fposts%2Fanh-li%25C3%25AAm-gi%25C3%25A0nh-cup-v%25C3%25A0ng-th%25E1%25BB%2583-hi%25E1%25BB%2587n-%25C4%2591%25E1%25BA%25B3ng-c%25E1%25BA%25A5p-out-tr%25C3%25ACnh-to%25C3%25A0n-b%25E1%25BB%2599-c%25C3%25A1c-%25C4%2591%25E1%25BB%2591i-th%25E1%25BB%25A7-%25C4%2591%25E1%25BA%25BFn-t%25E1%25BB%25AB-n%2F728945255938708%2F&psig=AOvVaw2HlyEieUFs1K1YDTZcAllt&ust=1711695350707000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCm15ywloUDFQAAAAAdAAAAABAE">
+                                }
+                            </div>
+                            <h6 class="d-flex justify-content-center">
+                                @Html.DisplayFor(modelItem => item.TenSP)
+                            </h6>
+                            <h6>
+                                Giá
+                                <span class="fw-bold text-danger">
+                                    @Html.DisplayFor(modelItem => item.GiaSP)đ
+                                </span>
+                            </h6>
+                            <div class="new">
+                                <span>
+                                    New
+                                </span>
+                            </div>
+                            <div class="d-flex justify-content-evenly">
+                                <i class="fas fa-shopping-cart"></i>
+                                <i class="fa fa-retweet"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
             <div class="btn-box">
                 <a href="">
                     View All Products

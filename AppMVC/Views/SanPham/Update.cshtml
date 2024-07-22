@@ -1,7 +1,7 @@
-﻿@model AppData.Models.DanhSachSP
+﻿@model AppData.Models.SanPham
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Update";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +61,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" asp-controller="SanPham" asp-action="Index">
+					<a class="nav-link active" asp-controller="SanPham" asp-action="Index" aria-current="page">
 						<i class="fas fa-box"></i> Quản lý sản phẩm
 					</a>
 				</li>
@@ -71,7 +71,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link  active" asp-controller="DanhMuc" asp-action="Index" aria-current="page">
+					<a class="nav-link  " asp-controller="DanhMuc" asp-action="Index">
 						<i class="fas fa-list"></i> Quản lý danh Mục
 					</a>
 				</li>
@@ -93,12 +93,12 @@
 			</ul>
 		</div>
 		<div class="content">
-			<h2>Quản lý danh mục</h2>
+			<h2>Quản lý sản phẩm</h2>
 			<hr />
-			<h3>Thêm danh mục</h3>
+			<h3>Sửa sản phẩm</h3>
 			<div class="row">
 				<div class="col-md-4">
-					<form asp-action="Create">
+					<form asp-action="Update" method="post" enctype="multipart/form-data">
 						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 						@*<div class="form-group">
 							<label asp-for="Id" class="control-label"></label>
@@ -106,16 +106,32 @@
 							<span asp-validation-for="Id" class="text-danger"></span>
 						</div>*@
 						<div class="form-group">
-							<label asp-for="TenDanhMuc" class="control-label">Tên danh mục sản phẩm</label>
-							<input asp-for="TenDanhMuc" class="form-control" />
-							<span asp-validation-for="TenDanhMuc" class="text-danger"></span>
+							<label asp-for="IdDanhMucSP" class="control-label"></label>
+							<input asp-for="IdDanhMucSP" class="form-control" />
+							<span asp-validation-for="IdDanhMucSP" class="text-danger"></span>
 						</div>
 						<div class="form-group">
-							<input type="submit" value="Create" class="btn btn-primary" />
+							<label asp-for="AnhSP" class="control-label"></label>
+							<input type="file" name="imgFile" id="AnhSP" />
+							<span asp-validation-for="AnhSP" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="TenSP" class="control-label"></label>
+							<input asp-for="TenSP" class="form-control" />
+							<span asp-validation-for="TenSP" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="GiaSP" class="control-label"></label>
+							<input asp-for="GiaSP" class="form-control" />
+							<span asp-validation-for="GiaSP" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Save" class="btn btn-primary" />
 						</div>
 					</form>
 				</div>
 			</div>
+
 			<div>
 				<a asp-action="Index">Back to List</a>
 			</div>
