@@ -1,0 +1,169 @@
+﻿@model AppData.ViewModels.SanPhamViewModel
+
+@{
+    ViewData["Title"] = "SanPhamDetail";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .product-detail-container {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image-main {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .product-thumbnails img {
+            width: 80px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1rem;
+        }
+
+        .price-discount {
+            color: #d9534f;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .discount-percent {
+            color: #d9534f;
+            font-weight: bold;
+        }
+
+        .product-info {
+            margin-bottom: 20px;
+        }
+
+            .product-info dt {
+                font-weight: bold;
+            }
+
+            .product-info dd {
+                margin-bottom: 1rem;
+            }
+
+        .product-options label {
+            margin-right: 10px;
+        }
+
+        .product-options .option-item {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .product-actions {
+            margin-top: 20px;
+        }
+
+        .btn-buy-now {
+            background-color: #ff5722;
+            border-color: #ff5722;
+            border-radius: 25px;
+            padding: 10px 30px;
+        }
+
+            .btn-buy-now:hover {
+                background-color: #e64a19;
+                border-color: #e64a19;
+            }
+
+        .btn-add-to-cart {
+            border-radius: 25px;
+            padding: 10px 30px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container product-detail-container">
+        <div class="row" method="post" enctype="multipart/form-data">
+            <div class="col-md-6">
+                @{
+                    var extension = System.IO.Path.GetExtension(@Model.SanPham.AnhSP); // Lấy đuôi ảnh
+                }
+                @if (@extension.Contains(extension))
+                {
+                    <img src="~/img/@Model.SanPham.AnhSP" width="200px">
+                }
+                else
+                {
+                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2Finternetexplorerbeta%2Fposts%2Fanh-li%25C3%25AAm-gi%25C3%25A0nh-cup-v%25C3%25A0ng-th%25E1%25BB%2583-hi%25E1%25BB%2587n-%25C4%2591%25E1%25BA%25B3ng-c%25E1%25BA%25A5p-out-tr%25C3%25ACnh-to%25C3%25A0n-b%25E1%25BB%2599-c%25C3%25A1c-%25C4%2591%25E1%25BB%2591i-th%25E1%25BB%25A7-%25C4%2591%25E1%25BA%25BFn-t%25E1%25BB%25AB-n%2F728945255938708%2F&psig=AOvVaw2HlyEieUFs1K1YDTZcAllt&ust=1711695350707000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCm15ywloUDFQAAAAAdAAAAABAE">
+                }
+            </div>
+            <div class="col-md-6">
+                <h2 class="product-title">@Model.SanPham.TenSP</h2>
+                <div class="product-pricing">
+                    @Model.SanPham.GiaSP
+                </div>
+                <div class="product-info mt-3">
+                    <label> Mô tả sản phẩm : </label>
+                        @Model.SanPham.MoTa
+                    
+                </div>
+                <div class="product-info mt-3">
+                    <label> Số lượng sản phẩm còn : </label>
+                    @Model.SanPham.SoLuong
+                </div>
+                <div class="product-options">
+                    <div class="option-color">
+                        <label>Màu Sắc:</label>
+                        <span>
+                            @foreach(var mau in Model.MauSacs)
+                            {
+                                <button type="button" class="btn btn-light" value="@mau.Value">@mau.Text</button>
+                            }
+                        </span>
+                    </div>
+                    <div class="option-size mt-2">
+                        <label>Size:</label>
+                        <span>
+                            @foreach (var size in Model.Sizes)
+                            {
+                                <button type="button" class="btn btn-light" value="@size.Value">@size.Text</button>
+                            }
+                        </span>
+                    </div>
+                </div>
+                <form asp-controller="GioHang" asp-action="AddtoCart" method="post">
+                    
+                    
+                    <div class="option-quantity mt-3">
+                        <label>Số Lượng:</label>
+                        <input type="number" id="quantity" name="soluong" min="1" class="form-control" placeholder="Nhập số lượng">
+                    </div>
+                    <div class="product-actions mt-4">
+                        
+                        <button class="btn btn-buy-now">Mua Ngay</button>
+                        <input type="hidden" name="id" value="@Model.SanPham.Id" />
+                        <button type="button" class="btn btn-outline-primary btn-add-to-cart">Thêm Vào Giỏ Hàng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

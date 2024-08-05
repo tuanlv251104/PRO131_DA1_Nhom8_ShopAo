@@ -1,8 +1,9 @@
-﻿@model IEnumerable<AppData.Models.SanPham>
+﻿@model AppData.ViewModels.SanPhamViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,12 +67,12 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="#" class="nav-link">
+					<a class="nav-link" asp-controller="ThanhToan" asp-action="QlHoaDon">
 						<i class="fas fa-shopping-cart"></i> Quản lý đơn hàng
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link  " asp-controller="DanhMuc" asp-action="Index" >
+					<a class="nav-link  " asp-controller="DanhMuc" asp-action="Index">
 						<i class="fas fa-list"></i> Quản lý danh Mục
 					</a>
 				</li>
@@ -111,11 +112,11 @@
 				<table class="table">
 					<thead>
 						<tr>
+							@*<th>
+								@Html.DisplayNameFor(model => model)
+							</th>*@
 							<th>
-								@Html.DisplayNameFor(model => model.Id)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.IdDanhMucSP)
+								@Html.DisplayNameFor(model => model.DanhSachSP)
 							</th>
 							<th>
 								@Html.DisplayNameFor(model => model.AnhSP)
@@ -126,18 +127,36 @@
 							<th>
 								@Html.DisplayNameFor(model => model.GiaSP)
 							</th>
-							<th></th>
+							<th>
+								@Html.DisplayNameFor(model => model.MoTa)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.SoLuong)
+							</th>
+							@*<th>
+								@Html.DisplayNameFor(model => model.ThuongHieu)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.TrangThaiSP)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MauSacs)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Sizes)
+							</th>*@
+							<th>Tính năng</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach (var item in Model)
+						@foreach (var item in Model.sanPhams)
 						{
 							<tr>
-								<td>
+								@*<td>
 									@Html.DisplayFor(modelItem => item.Id)
-								</td>
+								</td>*@
 								<td>
-									@Html.DisplayFor(modelItem => item.IdDanhMucSP)
+									@Html.DisplayFor(modelItem => item.DanhSachSP.TenDanhMuc)
 								</td>
 								<td>
 									@{
@@ -159,8 +178,27 @@
 									@Html.DisplayFor(modelItem => item.GiaSP)
 								</td>
 								<td>
+									@Html.DisplayFor(modelItem => item.MoTa)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.SoLuong)
+								</td>
+								@*<td>
+									@Html.DisplayFor(modelItem => item.ThuongHieu)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.TrangThaiSP)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.MauSacSP.TenMau)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.SizeSP.TenSize)
+								</td>*@
+								<td>
 									@Html.ActionLink("Update", "Update", new { id=item.Id }) |
-									@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+									@Html.ActionLink("Details", "Details", new { id=item.Id }) |
+									@Html.ActionLink("Delete", "Delete", new { id=item.Id })
 								</td>
 							</tr>
 						}
@@ -173,5 +211,3 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-

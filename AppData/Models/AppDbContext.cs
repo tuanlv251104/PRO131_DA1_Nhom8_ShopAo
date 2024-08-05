@@ -23,7 +23,6 @@ namespace AppData.Models
         public DbSet<HoaDon> hoaDons { get; set; }
         public DbSet<HoaDonCT> hoaDonCTs { get; set; }
         public DbSet<SanPham> sanPhams { get; set; }
-        public DbSet<SanPhamCT> sanPhamCTs { get;set; }
         public DbSet<GioHang> gioHangs { get; set; }
         public DbSet<GioHangCT> gioHangCTs { get; set; }
         public DbSet<DanhSachSP> danhSachSPs { get; set; }

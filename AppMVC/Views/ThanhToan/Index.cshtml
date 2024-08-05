@@ -1,0 +1,87 @@
+﻿@model IEnumerable<AppData.Models.HoaDon>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+           @* <th>
+                @Html.DisplayNameFor(model => model.IdMaGiamGia)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.TenNguoiNhan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoDienThoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayMua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThaiDonHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThaiThanhToan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.IdMaGiamGia)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.TenNguoiNhan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoDienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayMua)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThaiDonHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThaiThanhToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

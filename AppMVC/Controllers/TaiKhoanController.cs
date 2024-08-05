@@ -11,20 +11,20 @@ namespace AppMVC.Controllers
         {
             _db = new AppDbContext();
         }
-        public IActionResult Index(string TimTK="")
+        public IActionResult Index(string TimTK = "")
         {
-			if (!string.IsNullOrWhiteSpace(TimTK))
-			{
-				// Sử dụng Where để tìm kiếm tài khoản theo tên người dùng
-				var taiKhoan = _db.taiKhoans
-								  .Where(x => x.Username.ToUpper().Contains(TimTK.ToUpper()))
-								  .ToList();
-				return View(taiKhoan);
-			}
-			var data = _db.taiKhoans.ToList();
+            if (!string.IsNullOrWhiteSpace(TimTK))
+            {
+                // Sử dụng Where để tìm kiếm tài khoản theo tên người dùng
+                var taiKhoan = _db.taiKhoans
+                                  .Where(x => x.Username.ToUpper().Contains(TimTK.ToUpper()))
+                                  .ToList();
+                return View(taiKhoan);
+            }
+            var data = _db.taiKhoans.ToList();
             return View(data);
         }
-        public IActionResult Login(string username , string password)
+        public IActionResult Login(string username, string password)
         {
             if (username == null && password == null)
             {

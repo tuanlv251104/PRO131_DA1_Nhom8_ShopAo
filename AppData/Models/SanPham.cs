@@ -14,6 +14,15 @@ namespace AppData.Models
         public string TenSP { get; set; }
 		public decimal GiaSP { get; set; }
 		public virtual DanhSachSP DanhSachSP { get; set; }
-        public virtual List<SanPhamCT> SanPhamCT { get; set; }
-    }
+		public Guid SizeId { get; set; }
+		public Guid MauSacId { get; set; }
+		public int SoLuong { get; set; }
+		public string ThuongHieu { get; set; }
+		public string MoTa { get; set; }
+		public string TrangThaiSP { get; set; }
+		public virtual List<HoaDonCT> HoaDonCTs { get; set; }
+		public virtual List<GioHangCT> GioHangCTs { get; set; }
+		public virtual SizeSP SizeSP { get; set; }
+		public virtual MauSac MauSacSP { get; set; }
+	}
 }

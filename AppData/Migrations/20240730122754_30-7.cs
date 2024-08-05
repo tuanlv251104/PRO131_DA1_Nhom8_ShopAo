@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AppData.Migrations
 {
-    public partial class shopAo19 : Migration
+    public partial class _307 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,25 +75,6 @@ namespace AppData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "sanPhams",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdDanhMucSP = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenSP = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_sanPhams", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_sanPhams_danhSachSPs_IdDanhMucSP",
-                        column: x => x.IdDanhMucSP,
-                        principalTable: "danhSachSPs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "taiKhoans",
                 columns: table => new
                 {
@@ -113,14 +94,16 @@ namespace AppData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "sanPhamCTs",
+                name: "sanPhams",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SanPhamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdDanhMucSP = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AnhSP = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TenSP = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GiaSP = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SizeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MauSacId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GiaSP = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SoLuong = table.Column<int>(type: "int", nullable: false),
                     ThuongHieu = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MoTa = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -128,21 +111,21 @@ namespace AppData.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_sanPhamCTs", x => x.Id);
+                    table.PrimaryKey("PK_sanPhams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_sanPhamCTs_mauSacs_MauSacId",
+                        name: "FK_sanPhams_danhSachSPs_IdDanhMucSP",
+                        column: x => x.IdDanhMucSP,
+                        principalTable: "danhSachSPs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_sanPhams_mauSacs_MauSacId",
                         column: x => x.MauSacId,
                         principalTable: "mauSacs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_sanPhamCTs_sanPhams_SanPhamId",
-                        column: x => x.SanPhamId,
-                        principalTable: "sanPhams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_sanPhamCTs_sizeSPs_SizeId",
+                        name: "FK_sanPhams_sizeSPs_SizeId",
                         column: x => x.SizeId,
                         principalTable: "sizeSPs",
                         principalColumn: "Id",
@@ -183,31 +166,11 @@ namespace AppData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "anhSPs",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SanPhamCTId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenSP = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImgSP = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_anhSPs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_anhSPs_sanPhamCTs_SanPhamCTId",
-                        column: x => x.SanPhamCTId,
-                        principalTable: "sanPhamCTs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "gioHangCTs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SanPhamCTId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SanPhamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SoLuong = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
@@ -222,9 +185,9 @@ namespace AppData.Migrations
                         principalColumn: "Username",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_gioHangCTs_sanPhamCTs_SanPhamCTId",
-                        column: x => x.SanPhamCTId,
-                        principalTable: "sanPhamCTs",
+                        name: "FK_gioHangCTs_sanPhams_SanPhamId",
+                        column: x => x.SanPhamId,
+                        principalTable: "sanPhams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -234,7 +197,7 @@ namespace AppData.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdSanPhamCT = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdsanPham = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdHoaDon = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SoLuong = table.Column<int>(type: "int", nullable: false),
                     TongTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -250,22 +213,17 @@ namespace AppData.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_hoaDonCTs_sanPhamCTs_IdHoaDon",
-                        column: x => x.IdHoaDon,
-                        principalTable: "sanPhamCTs",
+                        name: "FK_hoaDonCTs_sanPhams_IdsanPham",
+                        column: x => x.IdsanPham,
+                        principalTable: "sanPhams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_anhSPs_SanPhamCTId",
-                table: "anhSPs",
-                column: "SanPhamCTId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_gioHangCTs_SanPhamCTId",
+                name: "IX_gioHangCTs_SanPhamId",
                 table: "gioHangCTs",
-                column: "SanPhamCTId");
+                column: "SanPhamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_gioHangCTs_Username",
@@ -276,6 +234,11 @@ namespace AppData.Migrations
                 name: "IX_hoaDonCTs_IdHoaDon",
                 table: "hoaDonCTs",
                 column: "IdHoaDon");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_hoaDonCTs_IdsanPham",
+                table: "hoaDonCTs",
+                column: "IdsanPham");
 
             migrationBuilder.CreateIndex(
                 name: "IX_hoaDons_IdMaGiamGia",
@@ -289,31 +252,23 @@ namespace AppData.Migrations
                 column: "Username");
 
             migrationBuilder.CreateIndex(
-                name: "IX_sanPhamCTs_MauSacId",
-                table: "sanPhamCTs",
-                column: "MauSacId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_sanPhamCTs_SanPhamId",
-                table: "sanPhamCTs",
-                column: "SanPhamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_sanPhamCTs_SizeId",
-                table: "sanPhamCTs",
-                column: "SizeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_sanPhams_IdDanhMucSP",
                 table: "sanPhams",
                 column: "IdDanhMucSP");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_sanPhams_MauSacId",
+                table: "sanPhams",
+                column: "MauSacId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_sanPhams_SizeId",
+                table: "sanPhams",
+                column: "SizeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "anhSPs");
-
             migrationBuilder.DropTable(
                 name: "gioHangCTs");
 
@@ -324,7 +279,7 @@ namespace AppData.Migrations
                 name: "hoaDons");
 
             migrationBuilder.DropTable(
-                name: "sanPhamCTs");
+                name: "sanPhams");
 
             migrationBuilder.DropTable(
                 name: "maGiamGia");
@@ -333,19 +288,16 @@ namespace AppData.Migrations
                 name: "taiKhoans");
 
             migrationBuilder.DropTable(
-                name: "mauSacs");
+                name: "danhSachSPs");
 
             migrationBuilder.DropTable(
-                name: "sanPhams");
+                name: "mauSacs");
 
             migrationBuilder.DropTable(
                 name: "sizeSPs");
 
             migrationBuilder.DropTable(
                 name: "gioHangs");
-
-            migrationBuilder.DropTable(
-                name: "danhSachSPs");
         }
     }
 }

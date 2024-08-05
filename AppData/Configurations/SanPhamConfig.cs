@@ -15,6 +15,8 @@ namespace AppData.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.HasOne(p => p.DanhSachSP).WithMany(p => p.SanPham).HasForeignKey(p => p.IdDanhMucSP);
-        }
+			builder.HasOne(p => p.SizeSP).WithMany(p => p.SanPham).HasForeignKey(p => p.SizeId);
+			builder.HasOne(p => p.MauSacSP).WithMany(p => p.SanPham).HasForeignKey(p => p.MauSacId);
+		}
     }
 }

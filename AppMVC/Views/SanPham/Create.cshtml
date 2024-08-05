@@ -1,7 +1,7 @@
-﻿@model AppData.Models.SanPham
+﻿@model AppData.ViewModels.SanPhamViewModel
 
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -101,18 +101,27 @@
 					<form asp-action="Create" method="post" enctype="multipart/form-data">
 						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 						@*<div class="form-group">
-							<label asp-for="Id" class="control-label"></label>
-							<input asp-for="Id" class="form-control" />
-							<span asp-validation-for="Id" class="text-danger"></span>
+						<label asp-for="Id" class="control-label"></label>
+						<input asp-for="Id" class="form-control" />
+						<span asp-validation-for="Id" class="text-danger"></span>
 						</div>*@
+						@if (TempData["ThongBaoCreate"] != null)
+						{
+							<div class="alert alert-danger">@TempData["ThongBaoCreate"]</div>
+						}
 						<div class="form-group">
-							<label asp-for="IdDanhMucSP" class="control-label"></label>
-							<input asp-for="IdDanhMucSP" class="form-control" />
-							<span asp-validation-for="IdDanhMucSP" class="text-danger"></span>
+							<label asp-for="DanhMucId" class="control-label">Danh mục sản phẩm</label>
+							<select asp-for="DanhMucId" class="form-control">
+								<option value="">-- Chọn danh mục --</option>
+								@foreach (var danhMuc in Model.DanhMucs)
+								{
+									<option value="@danhMuc.Value">@danhMuc.Text</option>
+								}
+							</select>
 						</div>
 						<div class="form-group">
-							<label asp-for="AnhSP" class="control-label"></label>
-							<input type="file" name="imgFile" id="AnhSP" />
+							<label class="control-label">Please choose image file:</label>
+							<input type="file" name="imgFile" id="AnhSP"/>
 							<span asp-validation-for="AnhSP" class="text-danger"></span>
 						</div>
 						<div class="form-group">
@@ -124,6 +133,46 @@
 							<label asp-for="GiaSP" class="control-label"></label>
 							<input asp-for="GiaSP" class="form-control" />
 							<span asp-validation-for="GiaSP" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="MoTa" class="control-label"></label>
+							<input asp-for="MoTa" class="form-control" />
+							<span asp-validation-for="MoTa" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="SoLuong" class="control-label"></label>
+							<input asp-for="SoLuong" class="form-control" />
+							<span asp-validation-for="SoLuong" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="ThuongHieu" class="control-label"></label>
+							<input asp-for="ThuongHieu" class="form-control" />
+							<span asp-validation-for="ThuongHieu" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="TrangThaiSP" class="control-label"></label>
+							<input asp-for="TrangThaiSP" class="form-control" />
+							<span asp-validation-for="TrangThaiSP" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="MauSacId" class="control-label">Màu sản phẩm</label>
+							<select asp-for="MauSacId" class="form-control">
+								<option value="">-- Chọn màu --</option>
+								@foreach (var mau in Model.MauSacs)
+								{
+									<option value="@mau.Value">@mau.Text</option>
+								}
+							</select>
+						</div>
+						<div class="form-group">
+							<label asp-for="IdSize" class="control-label">Kích cỡ sản phẩm</label>
+							<select asp-for="IdSize" class="form-control">
+								<option value="">-- Chọn kích cỡ --</option>
+								@foreach (var size in Model.Sizes)
+								{
+									<option value="@size.Value">@size.Text</option>
+								}
+							</select>
 						</div>
 						<div class="form-group">
 							<input type="submit" value="Create" class="btn btn-primary" />
@@ -143,5 +192,7 @@
 </html>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

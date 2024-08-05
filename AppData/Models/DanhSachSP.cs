@@ -10,6 +10,6 @@ namespace AppData.Models
     {
         public Guid Id { get; set; }
         public string TenDanhMuc { get; set; }
-        public virtual List<SanPham> SanPham { get; set;}
+        public virtual ICollection<SanPham> SanPham { get; set;}
     }
 }

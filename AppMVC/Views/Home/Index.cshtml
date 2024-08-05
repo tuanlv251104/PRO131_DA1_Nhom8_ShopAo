@@ -1,4 +1,5 @@
-﻿@model IEnumerable<AppData.Models.SanPham>
+﻿@model AppData.ViewModels.SanPhamViewModel
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Index";
@@ -40,7 +41,7 @@
             </h2>
         </div>
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (var item in Model.sanPhams)
             {
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <div class="box">
@@ -73,8 +74,8 @@
                                 </span>
                             </div>
                             <div class="d-flex justify-content-evenly">
-                                <i class="fas fa-shopping-cart"></i>
-                                <i class="fa fa-retweet"></i>
+                                <a href="/Home/SanPhamDetail/@item.Id"><i class="fa fa-retweet"></i></a>
+                                <a href="/GioHang/AddtoCart/@item.Id"><i class="fa fa-shopping-cart"></i></a>
                             </div>
                         </a>
                     </div>
