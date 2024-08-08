@@ -1,4 +1,5 @@
-﻿@model AppData.ViewModels.SanPhamViewModel
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model AppData.ViewModels.SanPhamViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -97,11 +98,12 @@
 			<h2>Quản lý sản phẩm</h2>
 			<div class="d-flex">
 				<p>
-					<a asp-action="Create">Thêm mới</a>
+					<button type="button" class="btn btn-primary">
+						<a class="text-decoration-none text-white" asp-action="Create">Thêm mới</a>
+					</button>
 				</p>
 				@using (Html.BeginForm())
 				{
-					<p></p>
 					<div class="form-group form-inline">
 						Tìm kiếm : @Html.TextBox("TimSP", "", new {@class="form-control"})
 						<input type="submit" class="btn btn-default" value="Tìm kiếm" />
@@ -196,9 +198,12 @@
 									@Html.DisplayFor(modelItem => item.SizeSP.TenSize)
 								</td>*@
 								<td>
-									@Html.ActionLink("Update", "Update", new { id=item.Id }) |
-									@Html.ActionLink("Details", "Details", new { id=item.Id }) |
-									@Html.ActionLink("Delete", "Delete", new { id=item.Id })
+									<button type="button" class="btn btn-danger">
+										<a class="text-decoration-none text-white" href="/SanPham/Update/@item.Id">Sửa</a>
+									</button>
+									<button type="button" class="btn btn-success">
+										<a class="text-decoration-none text-white" href="/SanPham/Details/@item.Id">Chi Tiết</a>
+									</button>
 								</td>
 							</tr>
 						}

@@ -18,20 +18,21 @@ namespace AppMVC.Controllers
         }
         public IActionResult Index()
         {
-            var gioHangCt = _db.gioHangCTs.Include(p=> p.SanPham).Include(p=> p.GioHang).ToList();
+            var check = HttpContext.Session.GetString("username");
+            var gioHangCt = _db.gioHangCTs.Include(p => p.SanPham).Include(p => p.GioHang).Where(p=>p.Username == check).ToList();
             decimal totalAmount = 0;
             foreach (var cartDetail in gioHangCt)
             {
                 totalAmount += cartDetail.SanPham.GiaSP * cartDetail.SoLuong;
             }
-            var GioHangView = new GioHangCTViewModel { gioHangCTs = gioHangCt , TotalAmount = totalAmount };
-            var check = HttpContext.Session.GetString("username");
-            if(string.IsNullOrEmpty(check) )
+            
+            if (string.IsNullOrEmpty(check))
             {
                 return RedirectToAction("Login", "TaiKhoan");
             }
             else
             {
+                var GioHangView = new GioHangCTViewModel { gioHangCTs = gioHangCt, TotalAmount = totalAmount };
                 return View(GioHangView);
             }
         }
@@ -95,6 +96,24 @@ namespace AppMVC.Controllers
             return View(GioHangView);
         }
 
-        
+        public ActionResult ItemThanhToan()
+        {
+            var gioHangCt = _db.gioHangCTs.Include(p => p.SanPham).Include(p => p.GioHang).ToList();
+            decimal totalAmount = 0;
+            foreach (var cartDetail in gioHangCt)
+            {
+                totalAmount += cartDetail.SanPham.GiaSP * cartDetail.SoLuong;
+            }
+            var GioHangView = new GioHangCTViewModel { gioHangCTs = gioHangCt, TotalAmount = totalAmount };
+            var check = HttpContext.Session.GetString("username");
+            if (string.IsNullOrEmpty(check))
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+            }
+            else
+            {
+                return View(GioHangView);
+            }
+        }
     }
 }

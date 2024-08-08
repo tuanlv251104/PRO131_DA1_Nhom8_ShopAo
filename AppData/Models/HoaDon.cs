@@ -10,7 +10,6 @@ namespace AppData.Models
     {
         public Guid Id { get; set; }
         public string Username { get; set; }
-        public Guid IdMaGiamGia { get; set; }
         public string TenNguoiNhan { get; set; }
         public int SoDienThoai { get; set; }
         public string DiaChi { get; set; }
@@ -21,6 +20,6 @@ namespace AppData.Models
         public int Status { get; set; }
         public virtual List<HoaDonCT> HoaDonCT { get; set; }
         public virtual TaiKhoan TaiKhoan { get; set; }  
-        public virtual MaGiamGia MaGiamGia { get;set; }
+
     }
 }

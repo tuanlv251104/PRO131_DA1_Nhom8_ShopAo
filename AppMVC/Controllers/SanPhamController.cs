@@ -26,7 +26,7 @@ namespace AppMVC.Controllers
 			if (!string.IsNullOrWhiteSpace(TimSP))
 			{
 				// Sử dụng Where để tìm kiếm tài khoản theo tên người dùng
-				var sanpham = viewModel.sanPhams.Where(x => x.TenSP.ToUpper().Contains(TimSP.ToUpper())).ToList();
+				var sanpham = viewModel.TenSP.ToUpper().Contains(TimSP.ToUpper());
 				return View(sanpham);
 			}
 			viewModel.sanPhams = _db.sanPhams.Include(p => p.DanhSachSP).Include(p=> p.MauSacSP).Include(p=> p.SizeSP).ToList();
@@ -120,22 +120,66 @@ namespace AppMVC.Controllers
 			return View(sanPhamView);
 		}
 
+		public IActionResult Update(SanPhamViewModel model,Guid id)
+		{
+			if(_Isv.SuaSP(model, id))
+			{
+				return RedirectToAction("Index");
+			}
+			model.DanhMucs = _db.danhSachSPs.ToList().Select(s => new SelectListItem
+			{
+				Value = s.Id.ToString(),
+				Text = s.TenDanhMuc
+			}).ToList();
+			model.MauSacs = _db.mauSacs.ToList().Select(s => new SelectListItem
+			{
+				Value = s.Id.ToString(),
+				Text = s.TenMau
+			}).ToList();
+				model.Sizes = _db.sizeSPs.ToList().Select(s => new SelectListItem
+				{
+					Value = s.Id.ToString(),
+					Text = s.TenSize
+				}).ToList();
+			return View(model);
+
+        }
+		[HttpGet]
 		public IActionResult Update(Guid id)
 		{
-			var UpdateItem = _db.sanPhams.Find(id);
-			return View(UpdateItem);
-		}
-		[HttpPost]
-		public IActionResult Update(Guid id, SanPham sanPham)
-		{
-			var updateItem = _db.sanPhams.Find(sanPham.Id);
-			updateItem.TenSP = sanPham.TenSP;
-			updateItem.AnhSP = sanPham.AnhSP;
-			updateItem.GiaSP = sanPham.GiaSP;
-			updateItem.IdDanhMucSP = sanPham.IdDanhMucSP;
-			_db.sanPhams.Update(updateItem);
-			_db.SaveChanges();
-			return RedirectToAction("Index");
+			SanPham sp = _Isv.GetById(id);
+			var updateItem = new SanPhamViewModel
+			{
+				SanPham = sp,
+				TenSP = sp.TenSP,
+				AnhSP = sp.AnhSP,
+				MoTa = sp.MoTa,
+				SoLuong = sp.SoLuong,
+				ThuongHieu = sp.ThuongHieu,
+				TrangThaiSP = sp.TrangThaiSP,
+				MauSacSP = sp.MauSacSP,
+				SizeSP = sp.SizeSP,
+				DanhSachSP = sp.DanhSachSP,
+                DanhMucs = _db.danhSachSPs.ToList().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenDanhMuc
+                }).ToList(),
+				DanhMucTen = sp.DanhSachSP.TenDanhMuc,
+                MauSacs = _db.mauSacs.ToList().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenMau
+                }).ToList(),
+				MauSacTen = sp.MauSacSP.TenMau,
+                Sizes = _db.sizeSPs.ToList().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenSize
+                }).ToList(),
+				tenSize = sp.SizeSP.TenSize,
+            };
+			return View(updateItem);
 		}
 
 		public IActionResult Delete(Guid id, SanPham sanPham)
@@ -157,6 +201,20 @@ namespace AppMVC.Controllers
 				SizeSP = sanPham.SizeSP,
 			};
 			return View(viewModel);
+		}
+
+		public IActionResult Search(string tk)
+		{
+			if (string.IsNullOrEmpty(tk))
+			{
+				return RedirectToAction("Index");
+			}
+			var check = _Isv.GetSamPhamTen(tk);
+			var view = new SanPhamViewModel()
+			{
+				sanPhams = check
+			};
+			return View("index", view);
 		}
 	}
 }

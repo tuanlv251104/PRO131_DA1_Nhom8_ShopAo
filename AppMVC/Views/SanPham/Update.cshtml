@@ -1,147 +1,199 @@
-﻿@model AppData.Models.SanPham
-
+﻿@model AppData.ViewModels.SanPhamViewModel
 @{
     ViewData["Title"] = "Update";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin Dashboard</title>
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-	<style>
-		body {
-			display: flex;
-			height: 100%;
-			margin: 0;
-		}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100%;
+            margin: 0;
+        }
 
-		.sidebar {
-			width: 250px;
-			background-color: #343a40;
-			color: white;
-			flex-shrink: 0;
-			display: flex;
-			flex-direction: column;
-			padding: 20px;
-		}
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
 
-			.sidebar .nav-link {
-				color: white;
-				margin: 10px 0;
-			}
+            .sidebar .nav-link {
+                color: white;
+                margin: 10px 0;
+            }
 
-				.sidebar .nav-link.active {
-					background-color: #495057;
-					border-radius: 5px;
-				}
+                .sidebar .nav-link.active {
+                    background-color: #495057;
+                    border-radius: 5px;
+                }
 
-		.content {
-			flex-grow: 1;
-			padding: 20px;
-			background-color: #f8f9fa;
-			overflow-y: auto;
-		}
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #f8f9fa;
+            overflow-y: auto;
+        }
 
-			.content h2 {
-				margin-top: 0;
-			}
-	</style>
+            .content h2 {
+                margin-top: 0;
+            }
+    </style>
 </head>
 <body>
-	<div class="d-flex">
-		<div class="sidebar d-flex flex-column">
-			<h4>Admin quản lý</h4>
-			<ul class="nav nav-pills flex-column mb-auto">
-				<li class="nav-item">
-					<a class="nav-link" asp-controller="TaiKhoan" asp-action="Index">
-						<i class="fas fa-users"></i> Quản lý Tài Khoản
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" asp-controller="SanPham" asp-action="Index" aria-current="page">
-						<i class="fas fa-box"></i> Quản lý sản phẩm
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="fas fa-shopping-cart"></i> Quản lý đơn hàng
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link  " asp-controller="DanhMuc" asp-action="Index">
-						<i class="fas fa-list"></i> Quản lý danh Mục
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="fas fa-tachometer-alt"></i> Dashboard
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="fas fa-cogs"></i> Cài đặt
-					</a>
-				</li>
-				<li>
-					<a class="nav-link" class="btn btn-outline" asp-controller="TaiKhoan" asp-action="LogOut">
-						<i class="fas fa-sign-out-alt"></i> Đăng xuất
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div class="content">
-			<h2>Quản lý sản phẩm</h2>
-			<hr />
-			<h3>Sửa sản phẩm</h3>
-			<div class="row">
-				<div class="col-md-4">
-					<form asp-action="Update" method="post" enctype="multipart/form-data">
-						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-						<div class="form-group">
-							<label asp-for="Id" class="control-label"></label>
-							<input asp-for="Id" class="form-control" />
-							<span asp-validation-for="Id" class="text-danger"></span>
-						</div>
-						<div class="form-group">
-							<label asp-for="IdDanhMucSP" class="control-label"></label>
-							<input asp-for="IdDanhMucSP" class="form-control" />
-							<span asp-validation-for="IdDanhMucSP" class="text-danger"></span>
-						</div>
-						<div class="form-group">
-							<label asp-for="AnhSP" class="control-label"></label>
-							<input type="file" name="imgFile" id="AnhSP" />
-							<span asp-validation-for="AnhSP" class="text-danger"></span>
-						</div>
-						<div class="form-group">
-							<label asp-for="TenSP" class="control-label"></label>
-							<input asp-for="TenSP" class="form-control" />
-							<span asp-validation-for="TenSP" class="text-danger"></span>
-						</div>
-						<div class="form-group">
-							<label asp-for="GiaSP" class="control-label"></label>
-							<input asp-for="GiaSP" class="form-control" />
-							<span asp-validation-for="GiaSP" class="text-danger"></span>
-						</div>
-						<div class="form-group">
-							<input type="submit" value="Save" class="btn btn-primary" />
-						</div>
-					</form>
-				</div>
-			</div>
+    <div class="d-flex">
+        <div class="sidebar d-flex flex-column">
+            <h4>Admin quản lý</h4>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="TaiKhoan" asp-action="Index">
+                        <i class="fas fa-users"></i> Quản lý Tài Khoản
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="SanPham" asp-action="Index" aria-current="page">
+                        <i class="fas fa-box"></i> Quản lý sản phẩm
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i> Quản lý đơn hàng
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " asp-controller="DanhMuc" asp-action="Index">
+                        <i class="fas fa-list"></i> Quản lý danh Mục
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cogs"></i> Cài đặt
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" class="btn btn-outline" asp-controller="TaiKhoan" asp-action="LogOut">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>Quản lý sản phẩm</h2>
+            <hr />
+            <h3>Sửa sản phẩm</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Update" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @*<div class="form-group">
+                        <label asp-for="sanPhamId" class="control-label"></label>
+                        <input asp-for="sanPhamId" class="form-control" />
+                        <span asp-validation-for="sanPhamId" class="text-danger"></span>
+                        </div>*@
+                        @if (TempData["ThongBaoCreate"] != null)
+                        {
+                        <div class="alert alert-danger">@TempData["ThongBaoCreate"]</div>
+                        }
+                        <div class="form-group">
+                            <label asp-for="TenSP" class="control-label"></label>
+                            <input asp-for="TenSP" class="form-control" />
+                            <span asp-validation-for="TenSP" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AnhSP" class="control-label"></label>
+                            <input asp-for="AnhSP" class="form-control" />
+                            <span asp-validation-for="AnhSP" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="GiaSP" class="control-label"></label>
+                            <input asp-for="GiaSP" class="form-control" />
+                            <span asp-validation-for="GiaSP" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MoTa" class="control-label"></label>
+                            <input asp-for="MoTa" class="form-control" />
+                            <span asp-validation-for="MoTa" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SoLuong" class="control-label"></label>
+                            <input asp-for="SoLuong" class="form-control" />
+                            <span asp-validation-for="SoLuong" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ThuongHieu" class="control-label"></label>
+                            <input asp-for="ThuongHieu" class="form-control" />
+                            <span asp-validation-for="ThuongHieu" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TrangThaiSP" class="control-label"></label>
+                            <input asp-for="TrangThaiSP" class="form-control" />
+                            <span asp-validation-for="TrangThaiSP" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DanhMucId" class="control-label">Danh mục sản phẩm</label>
+                            <select asp-for="DanhMucId" class="form-control">
+                                <option value="">-- Chọn danh mục --</option>
+                                @foreach (var danhMuc in Model.DanhMucs)
+                                {
+                                    <option value="@danhMuc.Value">@danhMuc.Text</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MauSacId" class="control-label">Màu sản phẩm</label>
+                            <select asp-for="MauSacId" class="form-control">
+                                <option value="">-- Chọn màu --</option>
+                                @foreach (var mau in Model.MauSacs)
+                                {
+                                    <option value="@mau.Value">@mau.Text</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IdSize" class="control-label">Kích cỡ sản phẩm</label>
+                            <select asp-for="IdSize" class="form-control">
+                                <option value="">-- Chọn kích cỡ --</option>
+                                @foreach (var size in Model.Sizes)
+                                {
+                                    <option value="@size.Value">@size.Text</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-			<div>
-				<a asp-action="Index">Back to List</a>
-			</div>
-		</div>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+

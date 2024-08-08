@@ -28,7 +28,6 @@ namespace AppData.Models
         public DbSet<DanhSachSP> danhSachSPs { get; set; }
         public DbSet<SizeSP> sizeSPs { get; set; }
         public DbSet<MauSac> mauSacs { get; set; }
-        public DbSet<MaGiamGia> maGiamGia { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

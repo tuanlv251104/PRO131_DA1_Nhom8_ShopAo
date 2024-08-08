@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AppData.Migrations
 {
-    public partial class _307 : Migration
+    public partial class shopao58 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,23 +31,6 @@ namespace AppData.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_gioHangs", x => x.Username);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "maGiamGia",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenMaGiamGia = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Ma = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhanTramGiam = table.Column<int>(type: "int", nullable: false),
-                    NgayBatDau = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NgayKetThuc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SoLuong = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_maGiamGia", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -138,7 +121,6 @@ namespace AppData.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdMaGiamGia = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TenNguoiNhan = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SoDienThoai = table.Column<int>(type: "int", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -151,12 +133,6 @@ namespace AppData.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_hoaDons", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_hoaDons_maGiamGia_IdMaGiamGia",
-                        column: x => x.IdMaGiamGia,
-                        principalTable: "maGiamGia",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_hoaDons_taiKhoans_Username",
                         column: x => x.Username,
@@ -241,12 +217,6 @@ namespace AppData.Migrations
                 column: "IdsanPham");
 
             migrationBuilder.CreateIndex(
-                name: "IX_hoaDons_IdMaGiamGia",
-                table: "hoaDons",
-                column: "IdMaGiamGia",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_hoaDons_Username",
                 table: "hoaDons",
                 column: "Username");
@@ -280,9 +250,6 @@ namespace AppData.Migrations
 
             migrationBuilder.DropTable(
                 name: "sanPhams");
-
-            migrationBuilder.DropTable(
-                name: "maGiamGia");
 
             migrationBuilder.DropTable(
                 name: "taiKhoans");

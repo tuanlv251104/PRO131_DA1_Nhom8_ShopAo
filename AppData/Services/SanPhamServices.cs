@@ -39,7 +39,7 @@ namespace AppData.Services
 
 		public SanPham GetById(Guid id)
 		{
-			return _db.sanPhams.Include(p => p.DanhSachSP).FirstOrDefault(p => p.Id == id);
+			return _db.sanPhams.Include(p => p.DanhSachSP).Include(p=>p.MauSacSP).Include(p=>p.SizeSP).FirstOrDefault(p => p.Id == id);
 		}
 
 		public List<SanPham> GetSamPhamTen(string name)
@@ -56,6 +56,12 @@ namespace AppData.Services
 				sp.AnhSP = sanPhamViewModel.AnhSP;
 				sp.GiaSP = sanPhamViewModel.GiaSP;
 				sp.DanhSachSP = sanPhamViewModel.DanhSachSP;
+				sp.SoLuong = sanPhamViewModel.SoLuong;
+				sp.MoTa = sanPhamViewModel.MoTa;
+				sp.MauSacSP = sanPhamViewModel.MauSacSP;
+				sp.SizeSP = sanPhamViewModel.SizeSP;
+				sp.ThuongHieu = sanPhamViewModel.ThuongHieu;
+				sp.TrangThaiSP = sanPhamViewModel.TrangThaiSP;
 				_db.sanPhams.Update(sp);
 				_db.SaveChanges();
 				return true;

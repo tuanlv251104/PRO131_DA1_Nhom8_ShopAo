@@ -11,6 +11,7 @@ namespace AppData.ViewModels
     {
         //Giỏ hàng 
         public List<GioHangCT> gioHangCTs { get; set; }
+        public string username { get; set; }
         public decimal TotalAmount { get; set; }
 
         public decimal TongTiens()

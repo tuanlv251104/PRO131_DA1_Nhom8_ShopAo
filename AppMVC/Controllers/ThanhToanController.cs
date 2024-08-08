@@ -30,7 +30,7 @@ namespace AppMVC.Controllers
             }
             else
             {
-                var Billitem = _db.hoaDons.Include(p=>p.HoaDonCT).Include(p=>p.TaiKhoan).Include(p=>p.MaGiamGia).Where(p => p.Username == check).ToList();
+                var Billitem = _db.hoaDons.Include(p=>p.HoaDonCT).Include(p=>p.TaiKhoan).Where(p => p.Username == check).ToList();
                 return View(Billitem);
             }
         }
@@ -45,12 +45,12 @@ namespace AppMVC.Controllers
             //}
             //else
             //{
-                var Billitem = _db.hoaDons.Include(p => p.HoaDonCT).Include(p => p.TaiKhoan).Include(p => p.MaGiamGia).ToList();
+                var Billitem = _db.hoaDons.Include(p => p.HoaDonCT).Include(p => p.TaiKhoan).ToList();
                 return View(Billitem);
             //}
         }
         //
-        public IActionResult AddHoaDon(Guid id)
+        public IActionResult AddHoaDon(Guid id, string tenKH , int sdt , string diachi)
         {
             var check = HttpContext.Session.GetString("username");
             if (string.IsNullOrEmpty(check))
@@ -64,7 +64,7 @@ namespace AppMVC.Controllers
                 else
                 {
                     decimal TongTien = 0;
-                    foreach (var item in _ghsv.GetAddGioHang())
+                    foreach (var item in _ghsv.GetAddGioHang().Where(p=>p.Username == check))
                     {
                         var sanpham = _db.sanPhams.Include(p=>p.DanhSachSP).Include(p=>p.MauSacSP).Include(p=>p.SizeSP).FirstOrDefault(p => p.Id == item.SanPhamId);
                         if(sanpham != null)
@@ -79,11 +79,10 @@ namespace AppMVC.Controllers
                         Username = check,
                         NgayMua = DateTime.Today,
                         tien = TongTien,
-                        TenNguoiNhan = "long",
-                        SoDienThoai = Int32.Parse("0392275922"),
-                        DiaChi = "hà nội",
+                        TenNguoiNhan = tenKH,
+                        SoDienThoai = sdt,//Int32.Parse("0392275922")
+                        DiaChi = diachi,
                         //adf1fa21-9d3a-4027-8f45-a39cc071d7c8
-                        IdMaGiamGia = Guid.Parse("adf1fa21-9d3a-4027-8f45-a39cc071d7c8"),
                         TrangThaiDonHang = "Chờ sử lý",
                         TrangThaiThanhToan = "Thanh toán khi nhận hàng"
                     };
@@ -125,5 +124,13 @@ namespace AppMVC.Controllers
 			_db.SaveChanges();
 			return RedirectToAction("QLHoaDon");
 		}
+
+        public IActionResult Delete(Guid id, HoaDon hoaDon)
+        {
+            var delete = _db.hoaDons.Find(hoaDon.Id);
+            _db.hoaDons.Remove(delete);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 	}
 }
